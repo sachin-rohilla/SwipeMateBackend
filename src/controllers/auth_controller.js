@@ -10,6 +10,7 @@ const signUp = async (req, res) => {
       message: "user created successfully",
     });
   } catch (error) {
+    console.log("Error in signup api", error);
     res.status(400).json({
       message: error?.message,
     });
