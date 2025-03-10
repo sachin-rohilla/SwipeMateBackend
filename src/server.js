@@ -1,12 +1,14 @@
 const express = require("express");
 const { connectToDB } = require("./config/db");
 const dotenv = require("dotenv");
+const { authRouter } = require("./routes/user_route");
+const app = express();
+const port = 3000;
 
 dotenv.config();
+app.use(express.json());
 
-const app = express();
-
-const port = 3000;
+app.use("/api", authRouter);
 
 connectToDB()
   .then(() => {
