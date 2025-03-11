@@ -61,6 +61,7 @@ const login = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
+      maxAge: 24 * 60 * 60 * 1000,
     });
     res.status(200).json({ message: "login successfully" });
   } catch (error) {
@@ -71,4 +72,23 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { signUp, login };
+const logout = async (req, res) => {
+  try {
+    res.cookie("token", null, {
+      httpOnly: true,
+      expires: new Date(Date.now()),
+      sameSite: "none",
+      secure: true,
+    });
+    res.status(200).json({
+      message: "Logout successfully",
+    });
+  } catch (error) {
+    console.log("Error in logout api", error);
+    res.status(400).json({
+      message: error?.message || "something went wrong",
+    });
+  }
+};
+
+module.exports = { signUp, login, logout };
