@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema(
     },
     age: {
       type: Number,
-      required: true,
+      // required: true,
       validate(value) {
         if (!validator.isInt(value.toString())) {
           throw new Error("Age should be a number");
@@ -68,7 +68,7 @@ const userSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      required: true,
+      // required: true,
       enum: ["male", "female", "other"],
       validate(value) {
         if (!validator.isAlpha(value)) {
