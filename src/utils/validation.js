@@ -27,4 +27,17 @@ const signUpValidation = (data) => {
   }
 };
 
-module.exports = { signUpValidation };
+const loginValidation = (data) => {
+  const { email, password } = data;
+  if (!email) {
+    throw new Error("email is required");
+  }
+  if (!password) {
+    throw new Error("password is required");
+  }
+
+  if (!validator.isEmail(email)) {
+    throw new Error("email is not valid");
+  }
+};
+module.exports = { signUpValidation, loginValidation };
