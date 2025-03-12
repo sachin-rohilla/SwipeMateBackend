@@ -42,19 +42,20 @@ const loginValidation = (data) => {
 };
 
 const profileValidation = (data) => {
+  console.log(data, "data");
   const { firstName, lastName, age, gender, profilePicUrl } = data;
 
   if (firstName?.length < 3 || firstName?.length > 20) {
     throw new Error("First name length should be between 3 and 20 characters.");
   }
-  if (!validator.isAlpha(firstName)) {
+  if (firstName && !validator.isAlpha(firstName)) {
     throw new Error("First name should only contain alphabets.");
   }
 
   if (lastName?.length < 3 || lastName?.length > 20) {
     throw new Error("Last name length should be between 3 and 20 characters.");
   }
-  if (!validator.isAlpha(lastName)) {
+  if (lastName && !validator.isAlpha(lastName)) {
     throw new Error("Last name should only contain alphabets.");
   }
 
