@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const { authRouter } = require("./routes/auth_route");
 const { authMiddleware } = require("./middleware/auth_middleware");
+const { profileRouter } = require("./routes/profile_route");
 const app = express();
 const port = 3000;
 
@@ -12,9 +13,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api", authRouter);
-app.use("/api/profile", authMiddleware, async (req, res) => {
-  res.send("profile");
-});
+app.use("/api", profileRouter);
 
 connectToDB()
   .then(() => {

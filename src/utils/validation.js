@@ -40,4 +40,42 @@ const loginValidation = (data) => {
     throw new Error("email is not valid");
   }
 };
-module.exports = { signUpValidation, loginValidation };
+
+const profileValidation = (data) => {
+  const { firstName, lastName, age, gender, profilePicUrl } = data;
+
+  if (firstName?.length < 3 || firstName?.length > 20) {
+    throw new Error("First name length should be between 3 and 20 characters.");
+  }
+  if (!validator.isAlpha(firstName)) {
+    throw new Error("First name should only contain alphabets.");
+  }
+
+  if (lastName?.length < 3 || lastName?.length > 20) {
+    throw new Error("Last name length should be between 3 and 20 characters.");
+  }
+  if (!validator.isAlpha(lastName)) {
+    throw new Error("Last name should only contain alphabets.");
+  }
+
+  if (age && !validator.isInt(age.toString(), { min: 1 })) {
+    throw new Error("Age should be a valid number.");
+  }
+
+  if (gender && !["male", "female", "other"].includes(gender)) {
+    throw new Error("Gender should be one of: male, female, or other.");
+  }
+  if (gender && !validator.isAlpha(gender)) {
+    throw new Error("Gender should only contain alphabets.");
+  }
+
+  if (profilePicUrl && !validator.isURL(profilePicUrl)) {
+    throw new Error("Profile picture URL is invalid.");
+  }
+
+  if (!profilePicUrl) {
+    data.profilePicUrl =
+      "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+  }
+};
+module.exports = { signUpValidation, loginValidation, profileValidation };
