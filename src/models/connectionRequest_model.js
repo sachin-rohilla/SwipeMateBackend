@@ -24,8 +24,10 @@ const connectionRequestSchema = new mongoose.Schema(
   }
 );
 
-const ConnectionRequestModel =
-  mongoose.models.ConnectionRequestModel ||
-  mongoose.model("ConnectionRequestModel", connectionRequestSchema);
+connectionRequestSchema.index({ fromUserId: 1, toUserId: 1 });
 
-module.exports = ConnectionRequestModel;
+const ConnectionRequestModel =
+  mongoose.models.ConnectionRequest ||
+  mongoose.model("ConnectionRequest", connectionRequestSchema);
+
+module.exports = { ConnectionRequestModel };
