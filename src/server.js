@@ -6,6 +6,7 @@ const { authRouter } = require("./routes/auth_route");
 const { profileRouter } = require("./routes/profile_route");
 const { connectionRequestRouter } = require("./routes/connectionRequest_route");
 const { userRouter } = require("./routes/user_route");
+const { feedRoute } = require("./routes/feed_route");
 const app = express();
 const port = 3000;
 
@@ -17,6 +18,7 @@ app.use("/api", authRouter);
 app.use("/api", profileRouter);
 app.use("/api", connectionRequestRouter);
 app.use("/api", userRouter);
+app.use("/api", feedRoute);
 
 connectToDB()
   .then(() => {

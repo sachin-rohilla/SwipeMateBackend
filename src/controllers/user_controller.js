@@ -43,9 +43,9 @@ const getAcceptedRequest = async (req, res) => {
       .populate("toUserId", ["firstName", "lastName", "profilePicUrl"]);
     const data = connectionRequets.map((item) => {
       if (item.fromUserId?._id.toString() === req.user?._id.toString()) {
-        return item.toUserId;
+        return item?.toUserId;
       } else {
-        return item.fromUserId;
+        return item?.fromUserId;
       }
     });
 
@@ -59,4 +59,4 @@ const getAcceptedRequest = async (req, res) => {
     });
   }
 };
-module.exports = { getRecievedRequest };
+module.exports = { getRecievedRequest, getAcceptedRequest };
