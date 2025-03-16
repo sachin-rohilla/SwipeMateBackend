@@ -40,7 +40,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     loginValidation(req.body);
-    const user = await User.findOne({ email });
+    let user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
         message: "Invalid credentials",
@@ -63,7 +63,14 @@ const login = async (req, res) => {
       sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000,
     });
-    res.status(200).json({ message: "login successfully" });
+    user = {
+      _id: user?._id,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      email: user?.email,
+      profilePicUrl: user?.profilePicUrl,
+    };
+    res.status(200).json({ message: "login successfully", data: user });
   } catch (error) {
     console.log("Error in login api", error);
     res.status(400).json({
