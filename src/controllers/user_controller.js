@@ -8,19 +8,21 @@ const getRecievedRequest = async (req, res) => {
         message: "Something went wrong",
       });
     }
+
     const data = await ConnectionRequest.find({
       toUserId: userId,
       status: "interested",
-    }).populate("fromUserId", ["firstName", "lastName", "profilePicUrl"]);
-
+    })
+      .populate("fromUserId", ["firstName", "lastName", "profilePicUrl"])
+      .select("fromUserId");
     res.status(200).json({
       message: "Data fetched successfully",
-      data,
+      data: data,
     });
   } catch (error) {
     console.log("Error in getRecievedRequest api", error);
     res.status(400).json({
-      message: error?.message || "something went wrong",
+      message: error?.message || "Something went wrong",
     });
   }
 };
