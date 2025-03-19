@@ -59,30 +59,31 @@ const userSchema = new mongoose.Schema(
     },
     age: {
       type: Number,
-      // required: true,
-      validate(value) {
-        if (!validator.isInt(value.toString())) {
-          throw new Error("Age should be a number");
-        }
-      },
+      required: true,
+      min: 10,
+      max: 80,
     },
     gender: {
       type: String,
-      // required: true,
+      trim: true,
+      required: true,
       enum: ["male", "female", "other"],
+    },
+    about: {
+      type: String,
+      trim: true,
+      required: true,
+      maxlength: 150,
       validate(value) {
-        if (!validator.isAlpha(value)) {
-          throw new Error("Gender should contain only alphabets");
-        }
-        if (!["male", "female", "other"].includes(value)) {
-          throw new Error("Gender should be male, female, or other");
+        if (value.length > 150) {
+          throw new Error("About field should be no more than 150 characters.");
         }
       },
     },
     profilePicUrl: {
       type: String,
       trim: true,
-      default: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+      default: "https://avatar.iran.liara.run/public/boy?username=unknown",
       validate(value) {
         if (!validator.isURL(value)) {
           throw new Error("Invalid URL");
