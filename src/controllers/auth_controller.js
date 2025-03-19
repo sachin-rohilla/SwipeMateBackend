@@ -7,8 +7,16 @@ const signUp = async (req, res) => {
   try {
     let user;
     signUpValidation(req?.body);
-    const { firstName, lastName, email, password, gender, age, about } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      gender,
+      age,
+      about,
+      profilePicUrl,
+    } = req.body;
     user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({
@@ -25,6 +33,7 @@ const signUp = async (req, res) => {
       age,
       password: hashPassword,
       about,
+      profilePicUrl,
     });
 
     await user.save();
