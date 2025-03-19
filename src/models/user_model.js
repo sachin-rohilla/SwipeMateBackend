@@ -73,10 +73,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: 150,
+      maxlength: 100,
       validate(value) {
-        if (value.length > 150) {
-          throw new Error("About field should be no more than 150 characters.");
+        if (value.length > 100) {
+          throw new Error("About field should be no more than 100 characters.");
         }
       },
     },

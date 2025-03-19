@@ -73,6 +73,9 @@ const login = async (req, res) => {
       lastName: user?.lastName,
       email: user?.email,
       profilePicUrl: user?.profilePicUrl,
+      about: user?.about,
+      age: user?.age,
+      gender: user?.gender,
     };
     res.status(200).json({ message: "login successfully", data: user });
   } catch (error) {

@@ -68,8 +68,8 @@ const signUpValidation = (data) => {
   }
 
   if (about) {
-    if (about.length > 150) {
-      throw new Error("About field should be no more than 150 characters.");
+    if (about.length > 100) {
+      throw new Error("About field should be no more than 100 characters.");
     }
   }
 
@@ -130,8 +130,8 @@ const profileValidation = (data) => {
       "https://cdn-icons-png.flaticon.com/512/149/149071.png";
   }
 
-  if (about && about.length > 150) {
-    throw new Error("About field should be no more than 150 characters.");
+  if (about && about.length > 100) {
+    throw new Error("About field should be no more than 100 characters.");
   }
 };
 

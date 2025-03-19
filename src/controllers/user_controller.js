@@ -13,7 +13,14 @@ const getRecievedRequest = async (req, res) => {
       toUserId: userId,
       status: "interested",
     })
-      .populate("fromUserId", ["firstName", "lastName", "profilePicUrl"])
+      .populate("fromUserId", [
+        "firstName",
+        "lastName",
+        "profilePicUrl",
+        "age",
+        "gender",
+        "about",
+      ])
       .select("fromUserId");
     res.status(200).json({
       message: "Data fetched successfully",
@@ -42,7 +49,14 @@ const getAcceptedRequest = async (req, res) => {
       ],
     })
       .populate("fromUserId", ["firstName", "lastName", "profilePicUrl"])
-      .populate("toUserId", ["firstName", "lastName", "profilePicUrl"]);
+      .populate("toUserId", [
+        "firstName",
+        "lastName",
+        "profilePicUrl",
+        "about",
+        "age",
+        "gender",
+      ]);
     const data = connectionRequets.map((item) => {
       if (item.fromUserId?._id.toString() === req.user?._id.toString()) {
         return item?.toUserId;
