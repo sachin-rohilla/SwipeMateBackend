@@ -11,7 +11,9 @@ const getProfile = async (req, res) => {
       });
     }
 
-    const user = await User.findOne(_id);
+    const user = await User.findOne(_id).select(
+      "-password -__v -createdAt -updatedAt"
+    );
     if (!user) {
       return res.status(400).json({
         message: "User not found",
@@ -42,16 +44,18 @@ const updateProfile = async (req, res) => {
     const { firstName, lastName, age, gender, profilePicUrl } = req.body;
 
     let updateData = {
-      firstName: firstName || req.user.firstName,
-      lastName: lastName || req.user.lastName,
-      age: age || req.user.age,
-      gender: gender || req.user.gender,
-      profilePicUrl: profilePicUrl || req.user.profilePicUrl,
+      firstName: firstName || req?.user?.firstName,
+      lastName: lastName || req?.user?.lastName,
+      age: age || req?.user.age,
+      gender: gender || req?.user.gender,
+      profilePicUrl: profilePicUrl || req?.user?.profilePicUrl,
     };
 
     profileValidation(req.body);
 
-    const user = await User.findByIdAndUpdate(_id, updateData, { new: true });
+    const user = await User.findByIdAndUpdate(_id, updateData, {
+      new: true,
+    }).select("-password -__v -createdAt -updatedAt");
 
     if (!user) {
       return res.status(400).json({
