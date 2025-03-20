@@ -41,7 +41,7 @@ const updateProfile = async (req, res) => {
       });
     }
 
-    const { firstName, lastName, age, gender, profilePicUrl } = req.body;
+    const { firstName, lastName, age, gender, profilePicUrl, about } = req.body;
 
     let updateData = {
       firstName: firstName || req?.user?.firstName,
@@ -49,6 +49,7 @@ const updateProfile = async (req, res) => {
       age: age || req?.user.age,
       gender: gender || req?.user.gender,
       profilePicUrl: profilePicUrl || req?.user?.profilePicUrl,
+      about: about || req?.user?.about,
     };
 
     profileValidation(req.body);
