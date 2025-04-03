@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 3,
       maxlength: 20,
+
       validate(value) {
         if (!validator.isAlpha(value)) {
           throw new Error("Last name should contain only alphabets");

@@ -27,7 +27,7 @@ const signUp = async (req, res) => {
 
     user = new User({
       firstName,
-      lastName,
+      lastName: lastName?.trim() ? lastName : undefined,
       email,
       gender,
       age,
@@ -38,8 +38,29 @@ const signUp = async (req, res) => {
 
     await user.save();
 
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "1d",
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
     res.status(201).json({
-      message: "user created successfully",
+      message: "User created successfully",
+      data: {
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        profilePicUrl: user.profilePicUrl,
+        about: user.about,
+        age: user.age,
+        gender: user.gender,
+      },
     });
   } catch (error) {
     console.log("Error in signUp api", error);
@@ -67,7 +88,8 @@ const login = async (req, res) => {
     }
     const token = await jwt.sign(
       { _id: user?._id },
-      process.env.JWT_SECRET_KEY
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "1d" }
     );
 
     res.cookie("token", token, {
